@@ -1,13 +1,23 @@
 import React from "react";
 import "./App.css";
-import {Title, ButtonAddNew, Invoices} from "./components/invoices";
+import { ButtonAddNew, Invoices, Form } from "./components/invoices";
 
 function App() {
   return (
     <div className="App">
-      <Title />
-      <ButtonAddNew />
-      <Invoices />
+      <div className="main-page">
+        <div>
+          <h2>Invoices</h2>
+        </div>
+        <ButtonAddNew />
+        <Invoices />
+      </div>
+      <div className="add-invoice-page">
+        <div>
+          <h2>Create invoice</h2>
+        </div>
+      </div>
+      <Form />
     </div>
   );
 }
