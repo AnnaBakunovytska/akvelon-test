@@ -53,19 +53,19 @@ export class Invoices extends React.Component {
           <div className="div-titles">
             <h2>Invoices</h2>
           </div>
+          <div className="invoices-table">
+            <div className="parameter-name header">Create</div>
+            <div className="parameter-name header">No</div>
+            <div className="parameter-name header">Supply</div>
+            <div className="parameter-name header">Comment</div>
+          </div>
           {items.map((item) => (
             <div key={item._id}>
               <div className="invoices-table">
-                <div className="parameter-name">Create</div>
-                <div className="parameter-name">No</div>
-                <div className="parameter-name">Supply</div>
-                <div className="parameter-name">Comment</div>
-              </div>
-              <div className="invoices-table">
-                <div className="parameter-name">{item.date_created}</div>
-                <div className="parameter-name">{item.number}</div>
-                <div className="parameter-name">{item.date_supplied}</div>
-                <div className="parameter-name">{item.comment}</div>
+                <div className="parameter-name item">{item.date_created}</div>
+                <div className="parameter-name item number">{item.number}</div>
+                <div className="parameter-name item">{item.date_supplied}</div>
+                <div className="parameter-name item">{item.comment}</div>
               </div>
             </div>
           ))}
@@ -76,24 +76,59 @@ export class Invoices extends React.Component {
 }
 
 export class Form extends React.Component {
+  submit = (event) => {
+    event.preventDefault();
+
+    const inputNumber = event.target.elements.number.value;
+    const inputDateSupply = event.target.elements.date_supplied.value;
+    const inputDateCreate = event.target.elements.date_created.value;
+    const inputComment = event.target.elements.comment.value;
+
+    let validInputNumber = true;
+    let validInputComment = true;
+
+    if (inputNumber.length < 3) {
+      validInputNumber = false;
+    }
+
+    if (inputComment.length > 160) {
+      validInputComment = false;
+    }
+
+    if (validInputNumber && validInputComment) {
+      fetch("http://localhost:3001/invoices", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          number: inputNumber,
+          date_supplied: inputDateSupply,
+          date_created: inputDateCreate,
+          comment: inputComment,
+        }),
+      });
+    }
+  };
+
   render() {
     return (
-      <form>
-        <div>
+      <form className="layout" onSubmit={this.submit}>
+        <div className="left-rows">
           <label>Number:</label>
-          <input type="text" name="number" />
+          <input type="number" name="number" />
           <label>Supply Date:</label>
           <input type="text" name="date_supplied" placeholder="Select date" />
         </div>
-        <div>
+        <div className="right-rows">
           <label>Invoce Date:</label>
           <input type="text" name="date_created" placeholder="Select date" />
         </div>
-        <div>
+        <div className="bottom-row">
           <label>Comment:</label>
           <input type="text" name="comment" />
         </div>
-        <div>
+        <div className="button">
           <button type="submit">Save</button>
         </div>
       </form>
