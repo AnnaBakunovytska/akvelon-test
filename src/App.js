@@ -4,20 +4,26 @@ import { ButtonAddNew, Invoices, Form } from "./components/invoices";
 
 function App() {
   return (
-    <div id="App">
-      <div className="main-page layout">
-        <div className="title">
-          <h2>Invoices</h2>
+    <div id="app">
+      <div className="container main">
+        <h1 className="heading">
+          <span>Invoices</span>
+        </h1>
+        <div className="content-block">
+          <ButtonAddNew />
         </div>
-        <ButtonAddNew />
-        <Invoices />
-      </div>
-      <div className="add-invoice-page layout">
-        <div className="title">
-          <h2>Create invoice</h2>
+        <div className="content-block">
+          <Invoices />
         </div>
       </div>
-      <Form />
+      <div className="container form" style={{ display: "none" }}>
+        <h1 className="heading">
+          <span>Create invoice</span>
+        </h1>
+        <div className="content-block">
+          <Form />
+        </div>
+      </div>
     </div>
   );
 }

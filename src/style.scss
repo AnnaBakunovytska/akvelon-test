@@ -1,151 +1,149 @@
-#App {
-  display: block;
-  position: relative;
-  width: 100%;
-  height: 100%;
+body {
   background-color: #f1f3f6;
+  font-size: 14px;
+  line-height: 1.2;
 }
 
-.layout {
+#app {
+  padding: 15px 0;
+}
+
+.container {
+  max-width: 1000px;
+  padding: 0 15px;
   margin: 0 auto;
+}
+
+.heading {
   position: relative;
-  width: 1000px;
-}
-
-.title {
-  width: 990px;
-  height: 52px;
-  line-height: 52px;
-
-  h2 {
-    padding: 0 0 0 16px;
-    font-size: 16px;
-    color: #8b92a3;
-  }
-}
-
-.contauner-add-inv {
-  background-color: #ffffff;
-  width: 990px;
-  height: 90px;
-  border-radius: 2px solid #cfcfcf;
-
-  h2 {
-    font-size: 12px;
-    padding: 17px 0 0 17px;
-    color: #494a49;
-  }
-
-  button {
-    width: 93px;
-    height: 32px;
-    text-align: center;
-    line-height: 28px;
-    margin: 0 0 0 17px;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-      Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-    color: #ffffff;
-    background-color: #4f76f6;
-    border-radius: 3px;
-    border: none;
-  }
-}
-
-.main-div {
-  width: 990px;
-  background-color: #ffffff;
-  margin-top: 20px;
-  padding-bottom: 20px;
-
-  h2 {
-    margin: 0 0 17px 17px;
-    padding-top: 17px;
-    font-size: 12px;
-    color: #494a49;
-  }
-
-  .parameter-name.header {
-    width: 247px;
-    height: 32px;
-    padding: 0 0 0 17px;
-    font-size: 10px;
-    color: #949baa;
-    background-color: #f1f3f6;
-    line-height: 32px;
-  }
-
-  .parameter-name.item {
-    width: 247px;
-    height: 32px;
-    padding: 0 0 0 17px;
-    font-size: 10px;
-    color: #b5b5b5;
-    background-color: #ffffff;
-    line-height: 32px;
-    border-bottom: 1px solid #b5b5b5;
-  }
-
-  .parameter-name.item.number {
-    color: #4f76f6;
-  }
-
-  .invoices-table {
-    display: flex;
-    flex-direction: row;
-    padding: 0 17px 0 17px;
-  }
-}
-
-form {
-  display: block;
-  position: relative;
+  margin: 0 0 16px;
+  font-size: 20px;
+  line-height: 2;
+  color: #8b92a3;
   overflow: hidden;
 
-  .left-rows {
-    float: left;
-    width: 49%;
+  &:before {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 3px;
+    background-color: #cfcfcf;
+  }
 
-    input {
-      width: 100%;
-      margin: 10px 20px 28px 17px;
-      height: 21px;
-      padding: 12px 20px;
-      box-sizing: border-box;
+  span {
+    position: relative;
+    padding: 0 16px;
+
+    &:after {
+      position: absolute;
+      content: "";
+      top: 50%;
+      left: 100%;
+      right: -9999px;
+      height: 2px;
+      background-color: #cfcfcf;
+    }
+  }
+}
+
+.content-block {
+  background-color: #fff;
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 1px solid #cfcfcf;
+  border-radius: 2px;
+}
+
+h2 {
+  font-size: 16px;
+  margin: 0 0 17px;
+  color: #494a49;
+}
+
+.invoices-table {
+  display: flex;
+}
+
+.parameter-name.header {
+  width: 100%;
+  height: 32px;
+  padding: 0 0 0 17px;
+  font-size: 10px;
+  color: #949baa;
+  background-color: #f1f3f6;
+  line-height: 32px;
+}
+
+.parameter-name.item {
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 32px;
+  padding: 0 20px 0 17px;
+  font-size: 10px;
+  color: #b5b5b5;
+  background-color: #ffffff;
+  line-height: 32px;
+  border-bottom: 1px solid #b5b5b5;
+}
+
+.parameter-name.item.number {
+  color: #4f76f6;
+}
+
+.btn {
+  display: inline-block;
+  padding: 8px 32px;
+  border: 0;
+  border-radius: 3px;
+  text-align: center;
+  color: #fff;
+  background-color: #4f76f6;
+}
+
+.invoice-form {
+  padding: 16px;
+  border: 1px solid #cfcfcf;
+  border-radius: 3px;
+
+  .form-row {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+
+    .form-item {
+      width: 49%;
     }
   }
 
-  .right-rows {
-    float: left;
-    width: 49%;
-
-    input {
-      width: 100%;
-      margin: 10px 20px 28px 17px;
-      height: 21px;
-      padding: 12px 20px;
-      box-sizing: border-box;
-    }
+  .form-block {
+    padding-bottom: 20px;
   }
 
-  .bottom-rows {
+  label {
     display: block;
-    width: 100%;
-
-    input {
-      width: 100%;
-      margin: 10px 20px 28px 17px;
-      height: 21px;
-      padding: 12px 20px;
-      box-sizing: border-box;
-    }
+    font-weight: 700;
+    margin-bottom: 8px;
   }
 
-  .button {
-    display: block;
+  input {
+    box-sizing: border-box;
     width: 100%;
+    border: 1px solid #cfcfcf;
+    border-radius: 3px;
+    padding: 3px 10px;
+    height: 30px;
+  }
 
-    button {
-      float: left;
-    }
+  textarea {
+    box-sizing: border-box;
+    width: 100%;
+    border: 1px solid #cfcfcf;
+    border-radius: 3px;
+    padding: 3px 10px;
+    height: 50px;
   }
 }

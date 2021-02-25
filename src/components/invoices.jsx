@@ -1,10 +1,18 @@
 import React from "react";
 
 export const ButtonAddNew = () => {
+  const btnShowForm = () => {
+    document.getElementsByClassName("container main")[0].style.display = "none";
+    document.getElementsByClassName("container form")[0].style.display =
+      "block";
+  };
+
   return (
     <div className="contauner-add-inv">
       <h2>Actions</h2>
-      <button className="add-new-button">Add new</button>
+      <button className="btn" onClick={btnShowForm}>
+        Add new
+      </button>
     </div>
   );
 };
@@ -18,14 +26,13 @@ export class Invoices extends React.Component {
     };
   }
 
-  componentDidMount() {
+  getRequest = () => {
     fetch("http://localhost:3001/invoices", null)
       .then((res) => {
         return res.json();
       })
       .then(
         (result) => {
-          console.log(result);
           this.setState({
             isLoaded: true,
             items: result,
@@ -38,29 +45,36 @@ export class Invoices extends React.Component {
           });
         }
       );
+  };
+
+  componentDidMount() {
+    this.getRequest();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.items.length !== this.state.items.length) {
+      this.getRequest();
+    }
   }
 
   render() {
-    const { error, isLoaded, items } = this.state;
-    console.log(this.state);
-    if (error) {
-      return <div>Ошибка: {error.message}</div>;
-    } else if (!isLoaded) {
+    if (this.state.error) {
+      return <div>Ошибка: {this.state.error.message}</div>;
+    } else if (!this.state.isLoaded) {
       return <div>Загрузка...</div>;
     } else {
       return (
         <div className="main-div">
-          <div className="div-titles">
-            <h2>Invoices</h2>
-          </div>
+          <div className="div-titles"></div>
+          <h2>Invoices</h2>
           <div className="invoices-table">
             <div className="parameter-name header">Create</div>
             <div className="parameter-name header">No</div>
             <div className="parameter-name header">Supply</div>
             <div className="parameter-name header">Comment</div>
           </div>
-          {items.map((item) => (
-            <div key={item._id}>
+          {this.state.items.map((item) => (
+            <div key={item.id}>
               <div className="invoices-table">
                 <div className="parameter-name item">{item.date_created}</div>
                 <div className="parameter-name item number">{item.number}</div>
@@ -108,28 +122,40 @@ export class Form extends React.Component {
           comment: inputComment,
         }),
       });
+      document.getElementsByClassName("container main")[0].style.display =
+        "block";
+      document.getElementsByClassName("container form")[0].style.display =
+        "none";
     }
   };
 
   render() {
     return (
-      <form className="layout" onSubmit={this.submit}>
-        <div className="left-rows">
-          <label>Number:</label>
-          <input type="number" name="number" />
-          <label>Supply Date:</label>
-          <input type="text" name="date_supplied" placeholder="Select date" />
+      <form className="invoice-form" onSubmit={this.submit}>
+        <div className="form-row">
+          <div className="form-item">
+            <label>Number:</label>
+            <input type="number" name="number" />
+          </div>
+          <div className="form-item">
+            <label>Invoice Date:</label>
+            <input type="date" name="date_created" placeholder="Select date" />
+          </div>
         </div>
-        <div className="right-rows">
-          <label>Invoce Date:</label>
-          <input type="text" name="date_created" placeholder="Select date" />
+        <div className="form-row">
+          <div className="form-item">
+            <label>Supply Date:</label>
+            <input type="date" name="date_supplied" placeholder="Select date" />
+          </div>
         </div>
-        <div className="bottom-row">
+        <div className="form-block">
           <label>Comment:</label>
-          <input type="text" name="comment" />
+          <textarea type="text" name="comment" />
         </div>
-        <div className="button">
-          <button type="submit">Save</button>
+        <div className="form-btn">
+          <button type="submit" className="btn">
+            Save
+          </button>
         </div>
       </form>
     );
