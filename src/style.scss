@@ -105,22 +105,29 @@ h2 {
 }
 
 .invoice-form {
-  padding: 16px;
-  border: 1px solid #cfcfcf;
-  border-radius: 3px;
+
+  .form-wrap {
+    padding: 16px;
+    margin-bottom: 16px;
+    border: 1px solid #cfcfcf;
+    border-radius: 3px;
+  }
 
   .form-row {
+    padding-bottom: 20px;
+  }
+
+  .items-row {
     display: flex;
     justify-content: space-between;
-    padding-bottom: 20px;
 
     .form-item {
       width: 49%;
     }
   }
 
-  .form-block {
-    padding-bottom: 20px;
+  .form-btn {
+    text-align: right;
   }
 
   label {

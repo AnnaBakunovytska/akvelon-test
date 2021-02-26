@@ -132,25 +132,27 @@ export class Form extends React.Component {
   render() {
     return (
       <form className="invoice-form" onSubmit={this.submit}>
-        <div className="form-row">
-          <div className="form-item">
-            <label>Number:</label>
-            <input type="number" name="number" />
+        <div className="form-wrap">
+          <div className="form-row items-row">
+            <div className="form-item">
+              <label>Number:</label>
+              <input type="number" name="number" />
+            </div>
+            <div className="form-item">
+              <label>Invoice Date:</label>
+              <input type="date" name="date_created" placeholder="Select date" />
+            </div>
           </div>
-          <div className="form-item">
-            <label>Invoice Date:</label>
-            <input type="date" name="date_created" placeholder="Select date" />
+          <div className="form-row items-row">
+            <div className="form-item">
+              <label>Supply Date:</label>
+              <input type="date" name="date_supplied" placeholder="Select date" />
+            </div>
           </div>
-        </div>
-        <div className="form-row">
-          <div className="form-item">
-            <label>Supply Date:</label>
-            <input type="date" name="date_supplied" placeholder="Select date" />
+          <div className="form-row">
+            <label>Comment:</label>
+            <textarea type="text" name="comment" />
           </div>
-        </div>
-        <div className="form-block">
-          <label>Comment:</label>
-          <textarea type="text" name="comment" />
         </div>
         <div className="form-btn">
           <button type="submit" className="btn">
