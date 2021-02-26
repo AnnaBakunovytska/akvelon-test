@@ -1,16 +1,11 @@
+/* eslint-disable react/prop-types */
 import React from "react";
 
-export const ButtonAddNew = () => {
-  const btnShowForm = () => {
-    document.getElementsByClassName("container main")[0].style.display = "none";
-    document.getElementsByClassName("container form")[0].style.display =
-      "block";
-  };
-
+export const ButtonAddNew = (props) => {
   return (
     <div className="contauner-add-inv">
       <h2>Actions</h2>
-      <button className="btn" onClick={btnShowForm}>
+      <button className="btn" onClick={props.triggerForm}>
         Add new
       </button>
     </div>
@@ -19,48 +14,12 @@ export const ButtonAddNew = () => {
 export class Invoices extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      error: null,
-      isLoaded: false,
-      items: [],
-    };
-  }
-
-  getRequest = () => {
-    fetch("http://localhost:3001/invoices", null)
-      .then((res) => {
-        return res.json();
-      })
-      .then(
-        (result) => {
-          this.setState({
-            isLoaded: true,
-            items: result,
-          });
-        },
-        (error) => {
-          this.setState({
-            isLoaded: true,
-            error,
-          });
-        }
-      );
-  };
-
-  componentDidMount() {
-    this.getRequest();
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.items.length !== this.state.items.length) {
-      this.getRequest();
-    }
   }
 
   render() {
-    if (this.state.error) {
-      return <div>Ошибка: {this.state.error.message}</div>;
-    } else if (!this.state.isLoaded) {
+    if (this.props.error) {
+      return <div>Ошибка: {this.props.error.message}</div>;
+    } else if (!this.props.isLoaded) {
       return <div>Загрузка...</div>;
     } else {
       return (
@@ -73,7 +32,7 @@ export class Invoices extends React.Component {
             <div className="parameter-name header">Supply</div>
             <div className="parameter-name header">Comment</div>
           </div>
-          {this.state.items.map((item) => (
+          {this.props.items.map((item) => (
             <div key={item.id}>
               <div className="invoices-table">
                 <div className="parameter-name item">{item.date_created}</div>
@@ -90,6 +49,11 @@ export class Invoices extends React.Component {
 }
 
 export class Form extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   submit = (event) => {
     event.preventDefault();
 
@@ -121,13 +85,12 @@ export class Form extends React.Component {
           date_created: inputDateCreate,
           comment: inputComment,
         }),
+      }).then(() => {
+        this.props.update();
+        this.props.triggerMain();
       });
-      document.getElementsByClassName("container main")[0].style.display =
-        "block";
-      document.getElementsByClassName("container form")[0].style.display =
-        "none";
     }
-  };
+  }
 
   render() {
     return (
